@@ -10,7 +10,7 @@ class FoodDeliveryAppWidgets {
     Color textColor,
     double textSize,
     FontWeight fontweight,
-
+    bool marginFromLeftRight,
     VoidCallback? onPressed, 
   ) {
     return GestureDetector
@@ -19,9 +19,8 @@ class FoodDeliveryAppWidgets {
       child: Container(
         margin: EdgeInsets.only(
           bottom: 36,
-          left: AppDimensions.marginLarge,
-      
-          right: AppDimensions.marginLarge,
+          left: marginFromLeftRight?AppDimensions.marginLarge:0,
+          right:marginFromLeftRight? AppDimensions.marginLarge:0,
         ),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(

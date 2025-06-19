@@ -51,6 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           AppColors.primary,
           17,
           FontWeight.bold,
+          true,
           () {
             // Navigate to the login screen using the named route
             Navigator.pushNamed(context, AppRoutes.loginSignup);
