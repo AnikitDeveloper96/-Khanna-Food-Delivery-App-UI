@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../appRoutes.dart';
+
 // Placeholder for AppColors class
 // In a real project, this would likely be in a separate file (e.g., constants/color.dart)
 class AppColors {
@@ -80,31 +82,31 @@ class _LoginPageState extends State<LoginPage> {
 
   // Handles the logic when the main action button (Login/Sign Up) is pressed
   void _handleAuthAction() {
-    // Validate all fields in the form
-    // When `validate()` is called, it triggers the validator for each TextFormField
-    // and updates their error messages accordingly.
-    if (_formKey.currentState!.validate()) {
-      if (_selectedTab == 'Login') {
-        final String email = _loginEmailController.text;
-        final String password = _loginPasswordController.text;
-        _showSnackBar('Login attempt for $email. (Backend check needed)');
-        // In a real app, if login is successful:
-        // Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
-      } else {
-        // Sign-up tab selected
-        final String email = _signupEmailController.text;
-        final String password = _signupPasswordController.text;
-        final String phoneNumber = _phoneNumberController.text;
+    // form validation
+    // if (_formKey.currentState!.validate()) {
+    //   if (_selectedTab == 'Login') {
+    //     final String email = _loginEmailController.text;
+    //     final String password = _loginPasswordController.text;
+    //     _showSnackBar('Login attempt for $email. (Backend check needed)');
+    //     // In a real app, if login is successful:
+    //     // Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
+    //   } else {
+    //     // Sign-up tab selected
+    //     final String email = _signupEmailController.text;
+    //     final String password = _signupPasswordController.text;
+    //     final String phoneNumber = _phoneNumberController.text;
+    //
+    //     _showSnackBar(
+    //       'Sign-up attempt for $email, Phone: $phoneNumber. (Backend registration needed)',
+    //     );
+    //     setState(() {
+    //       _selectedTab =
+    //           'Login'; // Suggest switching to login after simulated signup attempt
+    //     });
+    //   }
+    // }
 
-        _showSnackBar(
-          'Sign-up attempt for $email, Phone: $phoneNumber. (Backend registration needed)',
-        );
-        setState(() {
-          _selectedTab =
-              'Login'; // Suggest switching to login after simulated signup attempt
-        });
-      }
-    }
+    Navigator.pushNamed(context, AppRoutes.homeRoute);
   }
 
   // Helper function to show a SnackBar message
@@ -195,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Image.asset(
-                                'assets/chef_logo.png', // Placeholder, replace with actual asset
+                                'assets/images/login.svg', // Placeholder, replace with actual asset
                                 height:
                                     120, // Fixed height/width for a logo is acceptable and often desired
                                 width: 120,

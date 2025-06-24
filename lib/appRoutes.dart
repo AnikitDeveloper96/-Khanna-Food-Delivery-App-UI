@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/screens/homescreen/home_screen.dart';
 import 'package:fooddeliveryapp/screens/login_signup.dart';
 
 class AppRoutes {
@@ -11,6 +12,8 @@ class AppRoutes {
   static Map<String, WidgetBuilder> get routes {
     return {
       loginSignup: (context) => LoginPage(),
+      homeRoute:(context)=>HomeScreen(),
+
     };
   }
 }

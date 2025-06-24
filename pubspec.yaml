@@ -31,8 +31,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
+  flutter_svg:
   google_fonts: 
-  flutter_svg: 
+  shimmer:
+  flutter_bloc: 
 
 dev_dependencies:
   flutter_lints: ^5.0.0
