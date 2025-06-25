@@ -3,7 +3,7 @@ import 'package:fooddeliveryapp/appRoutes.dart';
 import 'package:fooddeliveryapp/constants/color.dart';
 import 'package:fooddeliveryapp/constants/dimensions.dart';
 import 'package:fooddeliveryapp/constants/styles.dart';
-import 'package:fooddeliveryapp/widgets/widget_button.dart';
+import 'package:fooddeliveryapp/widgets/widgets.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

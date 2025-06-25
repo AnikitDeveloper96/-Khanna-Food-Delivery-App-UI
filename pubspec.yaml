@@ -31,12 +31,13 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
-  flutter_svg:
-  google_fonts: 
-  shimmer:
-  flutter_bloc: 
+  flutter_bloc: null
+  flutter_svg: null
+  google_fonts: null
+  shimmer: null
 
 dev_dependencies:
+  flutter_advanced_drawer: ^1.5.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter

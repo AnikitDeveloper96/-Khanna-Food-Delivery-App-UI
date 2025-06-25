@@ -40,8 +40,10 @@ This project is built entirely with:
 ## See the UI in Action\!
 
 Here's a glimpse of the Khanna app in action:
-
-<img height="480px" src="assets/screenshots/onboarding.png" alt="Khanna App Onboarding Screen">
 <img height="480px" src="assets/screenshots/login.png" alt="Khanna App Login Screen">
 <img height="480px" src="assets/screenshots/signup.png" alt="Khanna App Signup Screen">
 <img height="480px" src="assets/screenshots/homescreen.png" alt="Khanna App Home Screen">
+<img height="480px" src="assets/screenshots/onboarding.png" alt="Khanna App Onboarding Screen">
+<img height="480px" src="assets/screenshots/drawer_header.png" alt="Khanna Drawer Header Screen">
+<img height="480px" src="assets/screenshots/offers.png" alt="Khanna Offers Screen">
+<img height="480px" src="assets/screenshots/profile.png" alt="Khanna Profile Screen">

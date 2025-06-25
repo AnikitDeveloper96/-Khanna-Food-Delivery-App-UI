@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Correct import for SvgPicture
 import 'package:fooddeliveryapp/constants/color.dart';
-import 'package:fooddeliveryapp/widgets/widget_button.dart';
+import 'package:fooddeliveryapp/widgets/widgets.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});

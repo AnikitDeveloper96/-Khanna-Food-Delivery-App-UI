@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/screens/history.dart';
 import 'package:fooddeliveryapp/screens/homescreen/home_screen.dart';
+import 'package:fooddeliveryapp/screens/homescreen/list_of_cuisine.dart';
 import 'package:fooddeliveryapp/screens/login_signup.dart';
+import 'package:fooddeliveryapp/screens/myoffers.dart';
+import 'package:fooddeliveryapp/screens/onboarding_screen.dart';
+import 'package:fooddeliveryapp/screens/orders.dart';
+import 'package:fooddeliveryapp/screens/profile.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -8,11 +14,32 @@ class AppRoutes {
   static const String loginSignup = '/loginSignup';
 
   static const String homeRoute = '/home';
+  static const String listofCusine = '/listofCusine';
+
+  static const String cartPage = '/cartPage';
+  static const String checkoutPage = '/checkoutPage';
+  static const String history = '/history';
+  static const String myOffers = '/myOffers';
+  static const String onboardingScreen = '/onboardingScreen';
+  static const String myorders = '/myOrders';
+  static const String productDetailsScreen = '/productDetailsScreen';
+  static const String myProfile = '/myProfile';
+  static const String searchScreen = '/searchScreen';
+
+
 
   static Map<String, WidgetBuilder> get routes {
     return {
       loginSignup: (context) => LoginPage(),
       homeRoute:(context)=>HomeScreen(),
+      listofCusine:(context)=>AllCuisinesScreen(allRecipes: [],),
+      history:(context)=>HistoryScreen(),
+      onboardingScreen:(context)=>OnboardingScreen(),
+      myorders:(context)=>OrderScreen(),
+      myProfile:(context)=>ProfileScreen(),
+      myOffers:(context)=>MyOffers()
+
+
 
     };
   }
