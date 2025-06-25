@@ -37,7 +37,7 @@ This project is built entirely with:
 
 -----
 
-## See the UI in Action\!
+## See the UI in Action
 
 Here's a glimpse of the Khanna app in action:
 <img height="480px" src="assets/screenshots/login.png" alt="Khanna App Login Screen">
