@@ -67,6 +67,6 @@ Here's a glimpse of the Khanna app in action:
 <img height="480px" src="assets/screenshots/profile.png" alt="Khanna Profile Screen">
 <img height="480px" src="assets/screenshots/history.png" alt="Khanna App History Screen">
 <img height="480px" src="assets/screenshots/my_favourites.png" alt="Khanna App Favoruite Screen">
-<img height="480px" src="assets/screenshots/list_of_cuisines.png.png" alt="Khanna Drawer list_of_cuisines">
+<img height="480px" src="assets/screenshots/list_of_cuisines.png" alt="Khanna Drawer list_of_cuisines">
 
 <img height="480px" src="assets/screenshots/product_details_screen.png" alt="Khanna product_details_screen">
