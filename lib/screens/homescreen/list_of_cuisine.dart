@@ -67,7 +67,7 @@ class AllCuisinesScreen extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               // Dispatch event to select this cuisine and navigate back to HomeScreen
-              BlocProvider.of<RecipeBloc>(context).add(SelectCuisine(cuisine));
+              BlocProvider.of<FoodDeliveryBloc>(context).add(SelectCuisine(cuisine));
               Navigator.of(context).pop(); // Go back to HomeScreen
             },
             child: Card(

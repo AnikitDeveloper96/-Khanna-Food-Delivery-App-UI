@@ -1,25 +1,30 @@
-// lib/bloc/blocs/food_delivery_bloc.dart
+// lib/bloc/recipe_bloc.dart
+
 import 'package:bloc/bloc.dart';
 import 'package:fooddeliveryapp/models/food_deliver_response_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
 
-import '../bloc_events/food_delivery_events.dart'; // Ensure this path is correct
-import '../bloc_state/food_delivery_states.dart'; // Ensure this path is correct
+import '../bloc_events/food_delivery_events.dart';
+import '../bloc_state/food_delivery_states.dart';
 
-class RecipeBloc
+class FoodDeliveryBloc
     extends Bloc<FoodDeliveryProductEvent, FoodDeliveryProductState> {
-  List<FoodDeliveryRecipeModel> _allRecipes = []; // Holds all fetched recipes
+  List<FoodDeliveryRecipeModel> _allRecipes = [];
+  Set<int> _favoriteRecipeIds = {}; // Store favorite recipe IDs
 
-  RecipeBloc() : super(FoodDeliveryProductInitial()) {
+  FoodDeliveryBloc() : super(FoodDeliveryProductInitial()) {
     on<FetchFoodDeliveryProducts>(_onFetchRecipes);
     on<SelectCuisine>(_onSelectCuisine);
+    on<SearchFoodDeliveryProducts>(_onSearchProducts);
+    on<ToggleFavoriteRecipe>(_onToggleFavorite);
   }
 
   Future<void> _onFetchRecipes(
-    FetchFoodDeliveryProducts event,
-    Emitter<FoodDeliveryProductState> emit,
-  ) async {
+      FetchFoodDeliveryProducts event,
+      Emitter<FoodDeliveryProductState> emit,
+      ) async {
     emit(FoodDeliveryProductLoading());
     try {
       final response = await http.get(
@@ -34,60 +39,63 @@ class RecipeBloc
                 .map((json) => FoodDeliveryRecipeModel.fromJson(json))
                 .toList();
 
-        // Determine initial selected cuisine for the first tab if available
-        final uniqueCuisines =
-            _allRecipes.map((e) => e.cuisine).toSet().toList();
-        uniqueCuisines.sort(); // Sort for consistent tab order
+        _allRecipes.sort((a, b) => a.cuisine.compareTo(b.cuisine));
 
-        // Exclude 'All' (case-insensitive) if it somehow appears in raw data
-        final filteredCuisines =
-            uniqueCuisines.where((c) => c.toLowerCase() != 'all').toList();
-
-        // Set the initial selected cuisine to 'All' to show all recipes initially
         String initialSelectedCuisine = 'All';
-
-        List<FoodDeliveryRecipeModel> initialFilteredRecipes =
-            _allRecipes; // Show all recipes for 'All' tab
+        List<FoodDeliveryRecipeModel> initialFilteredRecipes = _allRecipes;
 
         emit(
           FoodDeliveryProductLoaded(
             _allRecipes,
             initialFilteredRecipes,
             initialSelectedCuisine,
+            [], // Initial empty search results
+            _favoriteRecipeIds, // Pass the current favorite IDs
           ),
         );
       } else {
-        // Handle API errors (e.g., 404, 500)
         emit(
           FoodDeliveryProductError(
-            'Failed to load recipes: Server responded with status ${response.statusCode}',
+            'Failed to load recipes: Server responded with status ${response.statusCode}. Please try again later.',
           ),
         );
       }
-    } on http.ClientException catch (e) {
-      // Handle network errors (e.g., no internet connection)
+    } on SocketException {
       emit(
         FoodDeliveryProductError(
-          'Network Error: Could not connect to the server. ${e.message}',
+          "Network Error: Could not connect to the server. Please check your internet connection and try again.",
         ),
       );
+    } on http.ClientException catch (e) {
+      String errorMessage =
+          'Network connection issue. Please check your internet.';
+      if (e.message.contains('Failed host lookup') ||
+          e.message.contains('Connection refused')) {
+        errorMessage =
+        "Network Error: Could not reach 'dummyjson.com'. Please check your internet or try again later.";
+      } else {
+        errorMessage = 'A network error occurred: ${e.message}';
+      }
+      emit(FoodDeliveryProductError(errorMessage));
     } on FormatException catch (e) {
-      // Handle JSON parsing errors
       emit(
         FoodDeliveryProductError(
-          'Data Error: Failed to parse recipe data. ${e.message}',
+          'Data Error: Failed to parse recipe data. The received data might be corrupted or in an unexpected format. ${e.message}',
         ),
       );
     } catch (e) {
-      // Catch any other unexpected errors
-      emit(FoodDeliveryProductError('An unexpected error occurred: $e'));
+      emit(
+        FoodDeliveryProductError(
+          'An unexpected error occurred: $e. Please contact support.',
+        ),
+      );
     }
   }
 
   void _onSelectCuisine(
-    SelectCuisine event,
-    Emitter<FoodDeliveryProductState> emit,
-  ) {
+      SelectCuisine event,
+      Emitter<FoodDeliveryProductState> emit,
+      ) {
     if (state is FoodDeliveryProductLoaded) {
       final currentState = state as FoodDeliveryProductLoaded;
       List<FoodDeliveryRecipeModel> newFilteredRecipes;
@@ -95,22 +103,81 @@ class RecipeBloc
       if (event.cuisine.toLowerCase() == 'all') {
         newFilteredRecipes = _allRecipes;
       } else {
-        // Filter based on the exact cuisine name received from the tab
         newFilteredRecipes =
             _allRecipes
                 .where(
                   (recipe) =>
-                      recipe.cuisine.toLowerCase() ==
-                      event.cuisine.toLowerCase(),
-                )
+              recipe.cuisine.toLowerCase() ==
+                  event.cuisine.toLowerCase(),
+            )
                 .toList();
       }
 
       emit(
+        currentState.copyWith(
+          filteredRecipes: newFilteredRecipes,
+          selectedCuisine: event.cuisine,
+        ),
+      );
+    }
+  }
+
+  void _onSearchProducts(
+      SearchFoodDeliveryProducts event,
+      Emitter<FoodDeliveryProductState> emit,
+      ) {
+    if (state is FoodDeliveryProductLoaded) {
+      final currentState = state as FoodDeliveryProductLoaded;
+      List<FoodDeliveryRecipeModel> newSearchResults = [];
+
+      if (event.query.isEmpty) {
+        newSearchResults = []; // Clear search results if query is empty
+      } else {
+        newSearchResults = _allRecipes
+            .where((recipe) =>
+        recipe.name.toLowerCase().contains(event.query.toLowerCase()) ||
+            recipe.cuisine.toLowerCase().contains(event.query.toLowerCase()) ||
+            recipe.ingredients.any((ingredient) =>
+                ingredient.toLowerCase().contains(event.query.toLowerCase())))
+            .toList();
+      }
+
+      emit(
+        currentState.copyWith(
+          searchResults: newSearchResults,
+        ),
+      );
+    } else {
+      // If the state is not loaded, we should ideally load products first.
+      // For simplicity, we'll just emit an empty search result or error.
+      emit(
         FoodDeliveryProductLoaded(
-          currentState.allRecipes,
-          newFilteredRecipes,
-          event.cuisine,
+          _allRecipes,
+          [], // No filtered recipes for search
+          'All',
+          [], // Empty search results initially
+          _favoriteRecipeIds,
+        ).copyWith(
+          searchResults: [], // Default to empty if no products loaded
+        ),
+      );
+    }
+  }
+
+  void _onToggleFavorite(
+      ToggleFavoriteRecipe event,
+      Emitter<FoodDeliveryProductState> emit,
+      ) {
+    if (state is FoodDeliveryProductLoaded) {
+      final currentState = state as FoodDeliveryProductLoaded;
+      if (_favoriteRecipeIds.contains(event.recipeId)) {
+        _favoriteRecipeIds.remove(event.recipeId);
+      } else {
+        _favoriteRecipeIds.add(event.recipeId);
+      }
+      emit(
+        currentState.copyWith(
+          favoriteRecipeIds: Set<int>.from(_favoriteRecipeIds), // Create a new set to trigger rebuild
         ),
       );
     }

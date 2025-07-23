@@ -74,14 +74,22 @@ class CustomAdvancedDrawer extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0, right: 10.0,left: 20,bottom: 20),
-                  child: CircleAvatar( // Added CircleAvatar for the circular background
+                  padding: const EdgeInsets.only(
+                    top: 20.0,
+                    right: 10.0,
+                    left: 20,
+                    bottom: 20,
+                  ),
+                  child: CircleAvatar(
+                    // Added CircleAvatar for the circular background
                     backgroundColor: Colors.white, // White background
                     radius: 20, // Adjust radius as needed to fit the icon
                     child: IconButton(
                       icon: const Icon(
                         Icons.close,
-                        color: Colors.deepOrange, // Changed icon color for contrast
+                        color:
+                            Colors
+                                .deepOrange, // Changed icon color for contrast
                         size: 24, // Adjusted size to fit well within the circle
                       ),
                       onPressed: () {
@@ -101,13 +109,12 @@ class CustomAdvancedDrawer extends StatelessWidget {
                       Navigator.pushNamed(context, AppRoutes.myProfile);
                     }),
                     _buildDrawerItem(Icons.shopping_bag_outlined, 'Orders', () {
-
+                      Navigator.pushNamed(context, AppRoutes.myorders);
                     }),
                     _buildDrawerItem(
                       Icons.bookmark_border,
                       'Offer and Promo',
                       () {
-
                         Navigator.pushNamed(context, AppRoutes.myOffers);
                       },
                     ),

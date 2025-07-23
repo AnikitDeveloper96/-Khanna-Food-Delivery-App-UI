@@ -81,13 +81,25 @@ class OrderScreen extends StatelessWidget {
                 Text(
                   "No Orders yet",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 22,
                     fontWeight: FontWeight.w600,
-                    color:
-                        Colors.grey[500], // Using a lighter grey for the text
+                    color:Colors.black, // Using a lighter grey for the text
                   ),
                   textAlign:
                       TextAlign.center, // Center text within its own space
+                ),
+
+                const SizedBox(height: 20),
+                Text(
+                  "Hit the orange button down below to create an order",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color:
+                    Colors.grey[500], // Using a lighter grey for the text
+                  ),
+                  textAlign:
+                  TextAlign.center, // Center text within its own space
                 ),
               ],
             ),
@@ -103,7 +115,7 @@ class OrderScreen extends StatelessWidget {
               Colors.white,
               17,
               FontWeight.bold,
-              true, // This argument now matches the assumed signature in widget_button.dart
+              false, // This argument now matches the assumed signature in widget_button.dart
               () {
                 Navigator.pop(
                   context,

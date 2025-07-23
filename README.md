@@ -11,21 +11,29 @@ Our goal with Khanna was to craft a food delivery application that stands out no
 -----
 
 ### Key Highlights & Features:
+* **Engaging Onboarding**
+ A smooth and welcoming introduction for new users.
 
-  * **First Impressions That Last: Engaging Onboarding**
-    Our Onboarding Screen is designed for an effortless, engaging welcome, smoothly guiding new users into the app while setting the stage for delightful discovery.
+* **Intelligent Search**
+ Real-time dish discovery with clear "Item Not Found" feedback.
 
-  * **Intelligent & Accessible Navigation: Enhanced Home Screen**
-    On the Home Screen, witness the intuitive power of our tab bar, now perfectly aligned to the left. This provides a natural and accessible pathway to explore diverse cuisines with ease.
+* **Synchronized Favorites**
+ Effortlessly manage and view your favorite dishes across all screens (Home, Search, Dedicated Favorites).
 
-  * **Sleek, Modern Aesthetic: UI Facelift for the Tab Bar**
-    We've given the tab bar a significant UI facelift\! With generous top and bottom padding for the text and the underline completely removed, it exudes a clean, spacious, and contemporary look that dramatically enhances readability.
+* **Streamlined Cart & Checkout**
+ A smooth flow from item selection to order completion.
 
-  * **Crystal-Clear Choices, Instantly: Transparent Pricing**
-    No more guessing games\! Every tempting food item now prominently displays its transparent price, empowering you to make quick, informed decisions.
+* **Comprehensive Order History & Profiles**
+ Easy access to past orders and personal account management.
 
-  * **Performance-Driven & Responsive Design**
-    From the buttery-smooth onboarding animations to the dynamic, horizontally scrolling food lists, this UI is engineered for lightning speed, exceptional responsiveness, and a flawless experience across all device sizes. Optimized to look and perform beautifully across various mobile devices and screen sizes, ensuring a consistent experience for every user.
+* **Intuitive Navigation**
+ Enhanced Home Screen with left-aligned tabs and an integrated navigation drawer for quick access to Profile, Orders, and Offers.
+
+* **Sleek & Modern Aesthetic**
+ A clean UI facelift with a premium feel, featuring transparent pricing and optimized readability.
+
+* **High Performance & Responsiveness**
+ Engineered for speed, smooth animations, and a consistent experience across diverse mobile devices
 
 -----
 
@@ -35,6 +43,15 @@ This project is built entirely with:
 
   * **Flutter**: Google's UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
 
+* **Bloc**: Robust state management for predictable and scalable application logic (Favorites, Search, Cart).
+
+* **Advanced Drawer**: Customizable navigation drawer.
+
+* **Shimmer**: Elegant loading animations for enhanced user perception.
+
+* **SVG**: Scalable vector graphics for crisp visuals.
+
+* **HTTP**: For efficient network data fetching.
 -----
 
 ## See the UI in Action
@@ -48,3 +65,8 @@ Here's a glimpse of the Khanna app in action:
 <img height="480px" src="assets/screenshots/drawer_header.png" alt="Khanna Drawer Header Screen">
 <img height="480px" src="assets/screenshots/offers.png" alt="Khanna Offers Screen">
 <img height="480px" src="assets/screenshots/profile.png" alt="Khanna Profile Screen">
+<img height="480px" src="assets/screenshots/history.png" alt="Khanna App History Screen">
+<img height="480px" src="assets/screenshots/my_favourites.png" alt="Khanna App Favoruite Screen">
+<img height="480px" src="assets/screenshots/list_of_cuisines.png.png" alt="Khanna Drawer list_of_cuisines">
+
+<img height="480px" src="assets/screenshots/product_details_screen.png" alt="Khanna product_details_screen">

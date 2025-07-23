@@ -1,14 +1,20 @@
+// lib/widgets/food_card_widget.dart
+
 import 'package:flutter/material.dart';
-import '../models/food_deliver_response_model.dart'; // Adjust path as per your project structure
+import '../models/food_deliver_response_model.dart';
 
 class FoodCard extends StatelessWidget {
   final FoodDeliveryRecipeModel recipe;
-  final VoidCallback? onTap; // Optional tap handler
+  final VoidCallback onTap;
+  final bool isFavorite;
+  final Function(int)? onToggleFavorite;
 
   const FoodCard({
     Key? key,
     required this.recipe,
-    this.onTap,
+    required this.onTap,
+    this.isFavorite = false,
+    this.onToggleFavorite,
   }) : super(key: key);
 
   @override
@@ -16,62 +22,107 @@ class FoodCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 180, // Fixed width for each card as per design
-        margin: const EdgeInsets.only(right: 15), // Margin between cards
+        width: 180,
+        margin: const EdgeInsets.only(right: 22, top: 70, bottom: 10),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20), // Rounded corners
+          borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1), // Softer shadow
-              spreadRadius: 3,
-              blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
             ),
           ],
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+        child: Stack(
+          clipBehavior: Clip.none,
           children: [
-            // Circular Image
-            Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                // Using a background color as a subtle placeholder before image loads
-                color: Colors.grey[200],
-                image: DecorationImage(
-                  image: NetworkImage(recipe.image),
-                  fit: BoxFit.fill, // Cover the circle
+            Positioned(
+              top: -60,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: NetworkImage(
+                    recipe.image,
+                  ),
+                  onBackgroundImageError: (exception, stacktrace) {
+                    debugPrint('Error loading image for ${recipe.name}: $exception');
+                  },
                 ),
               ),
             ),
-            const SizedBox(height: 10), // Space between image and name
-            // Food Name
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                recipe.name,
-                textAlign: TextAlign.center,
-                maxLines: 2, // Allow up to 2 lines for long names
-                overflow: TextOverflow.ellipsis, // Add ellipsis if text overflows
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black, // Explicitly set text color
+            // Favorite Button
+            Positioned(
+              top: 10,
+              right: 10,
+              child: GestureDetector(
+                onTap: () {
+                  if (onToggleFavorite != null) {
+                    onToggleFavorite!(recipe.id);
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.8),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite ? Colors.red : Colors.grey,
+                    size: 24,
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 5), // Space between name and price
-            // Food Price
-            Text(
-              // Assuming caloriesPerServing is used as price
-              'N${recipe.caloriesPerServing.toStringAsFixed(2)}', // Nigerian Naira currency symbol
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.deepOrange, // Prominent color for price
-                fontWeight: FontWeight.bold,
+            Positioned.fill(
+              top: 80.0,
+              child: Padding(
+                // *** Adjusted: Reduced bottom padding slightly ***
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0), // Reduced from 10.0 to 5.0
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          recipe.name,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                    // *** Adjusted: Reduced SizedBox height slightly ***
+                    const SizedBox(height: 5), // Reduced from 8 to 5
+
+                    Text(
+                      '${recipe.cuisine}', // This could also be price from model, e.g., '₦${recipe.price}'
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepOrange,
+                      ),
+                    ),
+                    // *** Adjusted: Removed final SizedBox, or reduce it more if needed ***
+                    // const SizedBox(height: 5), // Optional: If overflow still occurs, remove or make smaller
+                  ],
+                ),
               ),
             ),
           ],

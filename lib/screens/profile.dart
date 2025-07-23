@@ -94,18 +94,11 @@ class ProfileScreen extends StatelessWidget {
                     // Profile Picture
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15.0),
-                      child: Image.network(
-                        // Using Image.network for a placeholder
-                        'https://placehold.co/80x80/FF6347/white?text=Avatar', // Placeholder for profile picture
+                      child: Image.asset(
+                        "assets/images/onboarding_screen_two.png",
                         width: 80,
                         height: 80,
                         fit: BoxFit.cover,
-                        errorBuilder:
-                            (context, error, stackTrace) => const Icon(
-                              Icons.person,
-                              size: 80,
-                              color: Colors.grey,
-                            ), // Fallback
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -241,7 +234,7 @@ class ProfileScreen extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         title: Text(
           title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         trailing: const Icon(
           Icons.arrow_forward_ios,

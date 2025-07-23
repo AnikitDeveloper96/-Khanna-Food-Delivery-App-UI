@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/screens/favourite_screen.dart';
 import 'package:fooddeliveryapp/screens/history.dart';
 import 'package:fooddeliveryapp/screens/homescreen/home_screen.dart';
 import 'package:fooddeliveryapp/screens/homescreen/list_of_cuisine.dart';
@@ -15,6 +16,7 @@ class AppRoutes {
 
   static const String homeRoute = '/home';
   static const String listofCusine = '/listofCusine';
+  static const String favourites = '/favourites';
 
   static const String cartPage = '/cartPage';
   static const String checkoutPage = '/checkoutPage';
@@ -37,7 +39,8 @@ class AppRoutes {
       onboardingScreen:(context)=>OnboardingScreen(),
       myorders:(context)=>OrderScreen(),
       myProfile:(context)=>ProfileScreen(),
-      myOffers:(context)=>MyOffers()
+      myOffers:(context)=>MyOffers(),
+      favourites:(context)=>FavoriteScreen()
 
 
 

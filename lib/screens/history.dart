@@ -146,7 +146,7 @@ class HistoryScreen extends StatelessWidget {
               Colors.white,
               17,
               FontWeight.bold,
-              true, // This argument now matches the assumed signature in widget_button.dart
+              false, // This argument now matches the assumed signature in widget_button.dart
               () {
                 Navigator.pop(
                   context,
