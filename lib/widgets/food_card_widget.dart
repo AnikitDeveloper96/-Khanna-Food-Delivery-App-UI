@@ -8,6 +8,7 @@ class FoodCard extends StatelessWidget {
   final VoidCallback onTap;
   final bool isFavorite;
   final Function(int)? onToggleFavorite;
+  final bool isGridView; // NEW
 
   const FoodCard({
     Key? key,
@@ -15,6 +16,8 @@ class FoodCard extends StatelessWidget {
     required this.onTap,
     this.isFavorite = false,
     this.onToggleFavorite,
+
+    this.isGridView = false,
   }) : super(key: key);
 
   @override
@@ -23,7 +26,9 @@ class FoodCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 180,
-        margin: const EdgeInsets.only(right: 22, top: 70, bottom: 10),
+        margin: isGridView
+            ? const EdgeInsets.only(top: 60)
+            : const EdgeInsets.only(right: 22, top: 70, bottom: 10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),

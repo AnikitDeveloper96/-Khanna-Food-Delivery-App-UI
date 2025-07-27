@@ -1,58 +1,58 @@
 # 🍔 Khanna Food Delivery App UI
 
-Welcome to the **Khanna Food Delivery App UI** project\! This repository showcases a modern, intuitive, and visually appealing user interface designed to elevate the food ordering experience. Built with Flutter, this UI prioritizes seamless navigation and efficient interaction from Browse to checkout.
+Welcome to the **Khanna Food Delivery App UI** project! This repository showcases a modern, intuitive, and visually appealing user interface designed to elevate the food ordering experience. Built with **Flutter**, this UI emphasizes seamless navigation, real-time interactivity, and consistent design — from browsing dishes to managing your favorites and checking out.
 
------
+---
 
-## Project Overview
+## 🚀 Project Overview
 
-Our goal with Khanna was to craft a food delivery application that stands out not just in functionality, but in its dedication to an exceptional user experience. We believe a great UI makes ordering your favorite meals a delight\!
+Khanna is more than just another food delivery UI — it’s a full-fledged, **mobile-first experience** crafted with pixel precision. With thoughtful animations, consistent component reuse, and smooth state management, Khanna ensures your users enjoy a fast, cohesive, and polished experience across screens.
 
------
+---
 
-### Key Highlights & Features:
-* **Engaging Onboarding**
- A smooth and welcoming introduction for new users.
+## 🌟 Key Highlights & Features
 
-* **Intelligent Search**
- Real-time dish discovery with clear "Item Not Found" feedback.
+- 🔥 **Engaging Onboarding**  
+  A clean and welcoming intro flow to guide first-time users.
 
-* **Synchronized Favorites**
- Effortlessly manage and view your favorite dishes across all screens (Home, Search, Dedicated Favorites).
+- 🔍 **Smart Real-time Search**  
+  Instant dish filtering with live feedback and graceful handling of “Item not found.”
 
-* **Streamlined Cart & Checkout**
- A smooth flow from item selection to order completion.
+- ❤️ **Unified Favorites System**  
+  Add/remove favorites anywhere (Home, Search) and view them consistently in the **Favorites** screen with the **same FoodCard UI**.
 
-* **Comprehensive Order History & Profiles**
- Easy access to past orders and personal account management.
+- 🛒 **Clean Cart & Checkout Flow**  
+  Smooth item selection and seamless order placement experience.
 
-* **Intuitive Navigation**
- Enhanced Home Screen with left-aligned tabs and an integrated navigation drawer for quick access to Profile, Orders, and Offers.
+- 🧾 **Order History & Profile Management**  
+  Access past orders, manage account info, and keep your app experience personal.
 
-* **Sleek & Modern Aesthetic**
- A clean UI facelift with a premium feel, featuring transparent pricing and optimized readability.
+- 📱 **Reusable `FoodCard` UI**  
+  Consistent design reused across Home, Search, and Favorites — now layout-aware for grid and list contexts.
 
-* **High Performance & Responsiveness**
- Engineered for speed, smooth animations, and a consistent experience across diverse mobile devices
+- 🧭 **Intuitive Navigation**  
+  Includes a modern navigation drawer with quick access to **Profile**, **Orders**, and **Offers**.
 
------
+- ✨ **Modern Aesthetic**  
+  Clean fonts, bright visuals, consistent paddings, and adaptive card designs make the UI visually delightful.
 
-## Technology Stack
+- ⚡ **Smooth & Responsive UX**  
+  Optimized for speed with support for all device sizes, ensuring smooth animations and transitions.
 
-This project is built entirely with:
+---
 
-  * **Flutter**: Google's UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+## 🧰 Tech Stack
 
-* **Bloc**: Robust state management for predictable and scalable application logic (Favorites, Search, Cart).
+This project is built using:
 
-* **Advanced Drawer**: Customizable navigation drawer.
+- **Flutter** – Cross-platform UI toolkit.
+- **Bloc** – For clean, testable, and scalable state management.
+- **Advanced Drawer** – For customizable drawer navigation.
+- **Shimmer** – Adds beautiful loading states.
+- **SVG** – Sharp vector images for scalable design.
+- **HTTP** – Efficient network layer for API integration.
 
-* **Shimmer**: Elegant loading animations for enhanced user perception.
-
-* **SVG**: Scalable vector graphics for crisp visuals.
-
-* **HTTP**: For efficient network data fetching.
------
+---
 
 ## See the UI in Action
 
@@ -68,5 +68,9 @@ Here's a glimpse of the Khanna app in action:
 <img height="480px" src="assets/screenshots/history.png" alt="Khanna App History Screen">
 <img height="480px" src="assets/screenshots/my_favourites.png" alt="Khanna App Favoruite Screen">
 <img height="480px" src="assets/screenshots/list_of_cuisines.png" alt="Khanna Drawer list_of_cuisines">
-
 <img height="480px" src="assets/screenshots/product_details_screen.png" alt="Khanna product_details_screen">
+
+<img height="480px" src="assets/screenshots/search_one.png" alt="Khanna App History Screen">
+<img height="480px" src="assets/screenshots/search_two.png" alt="Khanna App Search Screen">
+<img height="480px" src="assets/screenshots/search_three.png" alt="Khanna Drawer Search">
+<img height="480px" src="assets/screenshots/search_four.png" alt="Khanna Search">

@@ -1,5 +1,6 @@
 // Dummy data model for a cart item
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/appRoutes.dart';
 
 class CartItemModel {
   final String id;
@@ -29,29 +30,35 @@ class _CartScreenState extends State<CartScreen> {
   List<CartItemModel> cartItems = [
     CartItemModel(
       id: '1',
-      name: 'Veggie tomato mix',
-      imageUrl: 'https://placehold.co/60x60/FF6B35/FFFFFF?text=Food', // Placeholder image
+      name: 'Classic Margherita Pizza',
+      imageUrl:
+          'https://cdn.dummyjson.com/recipe-images/1.webp', // Placeholder image
       price: 1900.00,
       quantity: 1,
     ),
     CartItemModel(
       id: '2',
-      name: 'Fishwith mix orange...',
-      imageUrl: 'https://placehold.co/60x60/4CAF50/FFFFFF?text=Food', // Placeholder image
+      name: 'Vegetarian Stir-Fry',
+      imageUrl:
+          'https://cdn.dummyjson.com/recipe-images/2.webp', // Placeholder image
       price: 1900.00,
       quantity: 1,
     ),
     CartItemModel(
       id: '3',
-      name: 'Veggie tomato mix',
-      imageUrl: 'https://placehold.co/60x60/FFC107/FFFFFF?text=Food', // Placeholder image
+      name: 'Chocolate Chip Cookies',
+      imageUrl:
+          'https://cdn.dummyjson.com/recipe-images/3.webp', // Placeholder image
       price: 1900.00,
       quantity: 1,
     ),
   ];
 
   double get totalAmount {
-    return cartItems.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
+    return cartItems.fold(
+      0.0,
+      (sum, item) => sum + (item.price * item.quantity),
+    );
   }
 
   void _removeItem(String id) {
@@ -112,7 +119,7 @@ class _CartScreenState extends State<CartScreen> {
               'swipe on an item to delete',
               style: TextStyle(
                 color: Colors.grey[600],
-                fontSize: 12,
+                fontSize: cartItems.isEmpty?18:12,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -125,13 +132,16 @@ class _CartScreenState extends State<CartScreen> {
                 final item = cartItems[index];
                 return Dismissible(
                   key: Key(item.id), // Unique key for Dismissible
-                  direction: DismissDirection.endToStart, // Swipe from right to left
+                  direction:
+                      DismissDirection.endToStart, // Swipe from right to left
                   background: Container(
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.only(right: 20.0),
                     decoration: BoxDecoration(
                       color: Colors.red, // Red background when swiping
-                      borderRadius: BorderRadius.circular(20), // Rounded corners
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ), // Rounded corners
                     ),
                     child: const Icon(Icons.delete, color: Colors.white),
                   ),
@@ -162,7 +172,7 @@ class _CartScreenState extends State<CartScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    cartItems.isEmpty?Container():    const Text(
                       'Total',
                       style: TextStyle(
                         fontSize: 22,
@@ -170,8 +180,8 @@ class _CartScreenState extends State<CartScreen> {
                         color: Colors.black,
                       ),
                     ),
-                    Text(
-                      '₦${totalAmount.toStringAsFixed(2)}',
+                    cartItems.isEmpty?Container(): Text(
+                      totalAmount.toStringAsFixed(2),
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -186,19 +196,28 @@ class _CartScreenState extends State<CartScreen> {
                   height: 60,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigate to checkout or payment screen
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutScreen()));
+                      if (cartItems.isEmpty) {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          AppRoutes.homeRoute,
+                        );
+                      } else {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          AppRoutes.checkoutPage,
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFF6B35), // Orange color
+                      backgroundColor: const Color(0xFFFF6B35),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      elevation: 0, // No shadow
+                      elevation: 0,
                     ),
-                    child: const Text(
-                      'Complete order',
-                      style: TextStyle(
+                    child: Text(
+                      cartItems.isEmpty ? 'Start Ordering' : 'Complete Order',
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -248,18 +267,21 @@ class CartItemCard extends StatelessWidget {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(10), // Rounded corners for image
+            borderRadius: BorderRadius.circular(
+              10,
+            ), // Rounded corners for image
             child: Image.network(
               item.imageUrl,
               width: 70,
               height: 70,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
-                width: 70,
-                height: 70,
-                color: Colors.grey[200],
-                child: const Icon(Icons.fastfood, color: Colors.grey),
-              ),
+              errorBuilder:
+                  (context, error, stackTrace) => Container(
+                    width: 70,
+                    height: 70,
+                    color: Colors.grey[200],
+                    child: const Icon(Icons.fastfood, color: Colors.grey),
+                  ),
             ),
           ),
           const SizedBox(width: 15),
@@ -279,7 +301,7 @@ class CartItemCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  '₦${item.price.toStringAsFixed(2)}',
+                  '${item.price.toStringAsFixed(2)}',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -300,7 +322,11 @@ class CartItemCard extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: onDecrease,
-                  child: const Icon(Icons.remove, size: 18, color: Colors.white),
+                  child: const Icon(
+                    Icons.remove,
+                    size: 18,
+                    color: Colors.white,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),

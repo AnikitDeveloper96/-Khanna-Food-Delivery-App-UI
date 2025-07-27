@@ -94,6 +94,7 @@ class FavoriteScreen extends StatelessWidget {
                 return FoodCard(
                   recipe: recipe,
                   isFavorite: isFavorite,
+                  isGridView: true,
                   onToggleFavorite: (recipeId) {
                     BlocProvider.of<FoodDeliveryBloc>(context).add(ToggleFavoriteRecipe(recipeId));
                   },
@@ -105,6 +106,7 @@ class FavoriteScreen extends StatelessWidget {
                     );
                   },
                 );
+
               },
             );
           } else if (state is FoodDeliveryProductError) {

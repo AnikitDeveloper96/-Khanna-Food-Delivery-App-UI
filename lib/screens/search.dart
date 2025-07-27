@@ -157,7 +157,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
-                      childAspectRatio: 0.8, // Adjust as needed for card size
+                      childAspectRatio: 0.62, // Adjusted to allow more vertical space
                     ),
                     itemCount: state.searchResults.length,
                     itemBuilder: (context, index) {
@@ -166,6 +166,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                       return FoodCard(
                         recipe: recipe,
                         isFavorite: isFavorite,
+                        isGridView: true,
                         onToggleFavorite: (recipeId) {
                           BlocProvider.of<FoodDeliveryBloc>(context).add(ToggleFavoriteRecipe(recipeId));
                         },
@@ -182,6 +183,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                 ),
               ],
             );
+
           } else if (state is FoodDeliveryProductError) {
             return Center(
               child: Text(

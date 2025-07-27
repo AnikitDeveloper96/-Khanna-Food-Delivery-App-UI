@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/screens/cartpage.dart';
+import 'package:fooddeliveryapp/screens/checkout_page.dart';
 import 'package:fooddeliveryapp/screens/favourite_screen.dart';
 import 'package:fooddeliveryapp/screens/history.dart';
 import 'package:fooddeliveryapp/screens/homescreen/home_screen.dart';
@@ -8,6 +10,7 @@ import 'package:fooddeliveryapp/screens/myoffers.dart';
 import 'package:fooddeliveryapp/screens/onboarding_screen.dart';
 import 'package:fooddeliveryapp/screens/orders.dart';
 import 'package:fooddeliveryapp/screens/profile.dart';
+import 'package:fooddeliveryapp/screens/search.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -40,7 +43,10 @@ class AppRoutes {
       myorders:(context)=>OrderScreen(),
       myProfile:(context)=>ProfileScreen(),
       myOffers:(context)=>MyOffers(),
-      favourites:(context)=>FavoriteScreen()
+      favourites:(context)=>FavoriteScreen(),
+      searchScreen:(context)=>SearchResultsScreen(initialQuery: '',),
+      cartPage:(context)=>CartScreen(),
+      checkoutPage:(context)=>CheckoutDeliveryScreen(totalAmount: 0)
 
 
 
