@@ -37,7 +37,8 @@ class AppRoutes {
     return {
       loginSignup: (context) => LoginPage(),
       homeRoute: (context) => HomeScreen(),
-      listofCusine: (context) => AllCuisinesScreen(allRecipes: []),
+
+      ///  listofCusine: (context) => AllCuisinesScreen(allRecipes: []),
       history: (context) => HistoryScreen(),
       onboardingScreen: (context) => OnboardingScreen(),
       myorders: (context) => OrderScreen(),
