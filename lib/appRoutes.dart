@@ -9,6 +9,7 @@ import 'package:fooddeliveryapp/screens/login_signup.dart';
 import 'package:fooddeliveryapp/screens/myoffers.dart';
 import 'package:fooddeliveryapp/screens/onboarding_screen.dart';
 import 'package:fooddeliveryapp/screens/orders.dart';
+import 'package:fooddeliveryapp/screens/payment_screen.dart';
 import 'package:fooddeliveryapp/screens/profile.dart';
 import 'package:fooddeliveryapp/screens/search.dart';
 
@@ -30,26 +31,38 @@ class AppRoutes {
   static const String productDetailsScreen = '/productDetailsScreen';
   static const String myProfile = '/myProfile';
   static const String searchScreen = '/searchScreen';
-
-
+  static const String paymentScreen = '/paymentScreen';
 
   static Map<String, WidgetBuilder> get routes {
     return {
       loginSignup: (context) => LoginPage(),
-      homeRoute:(context)=>HomeScreen(),
-      listofCusine:(context)=>AllCuisinesScreen(allRecipes: [],),
-      history:(context)=>HistoryScreen(),
-      onboardingScreen:(context)=>OnboardingScreen(),
-      myorders:(context)=>OrderScreen(),
-      myProfile:(context)=>ProfileScreen(),
-      myOffers:(context)=>MyOffers(),
-      favourites:(context)=>FavoriteScreen(),
-      searchScreen:(context)=>SearchResultsScreen(initialQuery: '',),
-      cartPage:(context)=>CartScreen(),
-      checkoutPage:(context)=>CheckoutDeliveryScreen(totalAmount: 0)
-
-
-
+      homeRoute: (context) => HomeScreen(),
+      listofCusine: (context) => AllCuisinesScreen(allRecipes: []),
+      history: (context) => HistoryScreen(),
+      onboardingScreen: (context) => OnboardingScreen(),
+      myorders: (context) => OrderScreen(),
+      myProfile: (context) => ProfileScreen(),
+      myOffers: (context) => MyOffers(),
+      favourites: (context) => FavoriteScreen(),
+      searchScreen: (context) => SearchResultsScreen(initialQuery: ''),
+      cartPage: (context) => CartScreen(),
+      checkoutPage: (context) {
+        final totalAmount =
+            ModalRoute.of(context)?.settings.arguments as double? ?? 0.0;
+        return CheckoutDeliveryScreen(
+          totalAmount: totalAmount,
+        ); // ✅ Using passed amount
+      },
+      paymentScreen: (context) {
+        final args =
+            ModalRoute.of(context)?.settings.arguments
+                as Map<String, dynamic>? ??
+            {};
+        final totalAmount = args['totalAmount'] as double? ?? 0.0;
+        final deliveryMethod =
+            args['deliveryMethod'] as String? ?? 'Door delivery';
+        return PaymentScreen();
+      },
     };
   }
 }

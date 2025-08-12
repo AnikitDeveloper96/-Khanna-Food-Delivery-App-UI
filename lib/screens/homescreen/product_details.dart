@@ -236,7 +236,7 @@ class _KhannaProductDetailScreenState extends State<KhannaProductDetailScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 30),
             ],
           ),
         );

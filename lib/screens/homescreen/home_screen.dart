@@ -31,9 +31,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<FoodDeliveryRecipeModel> _allRecipesFromBloc = [];
 
   final AdvancedDrawerController _advancedDrawerController =
-  AdvancedDrawerController();
+      AdvancedDrawerController();
   final TextEditingController _searchController =
-  TextEditingController(); // Add controller for search bar
+      TextEditingController(); // Add controller for search bar
 
   @override
   void initState() {
@@ -75,15 +75,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         Navigator.pushNamed(context, AppRoutes.homeRoute);
         break;
       case 1:
-
         Navigator.pushNamed(context, AppRoutes.favourites);
         break;
       case 2:
-
         Navigator.pushNamed(context, AppRoutes.myProfile);
         break;
       case 3:
-
         Navigator.pushNamed(context, AppRoutes.history);
         break;
     }
@@ -95,7 +92,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAdvancedDrawer( // Assuming CustomAdvancedDrawer is your wrapper
+    return CustomAdvancedDrawer(
+      // Assuming CustomAdvancedDrawer is your wrapper
       controller: _advancedDrawerController,
       child: Scaffold(
         backgroundColor: const Color(0xFFF0F0F0),
@@ -131,14 +129,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               _allRecipesFromBloc = state.allRecipes;
 
               final allUniqueCuisines =
-              state.allRecipes.map((e) => e.cuisine).toSet().toList();
+                  state.allRecipes.map((e) => e.cuisine).toSet().toList();
               allUniqueCuisines.sort();
 
               List<String> newCuisineTabs = ['All'];
-              final dynamicCuisines = allUniqueCuisines
-                  .where((c) => c.toLowerCase() != 'all')
-                  .take(3)
-                  .toList();
+              final dynamicCuisines =
+                  allUniqueCuisines
+                      .where((c) => c.toLowerCase() != 'all')
+                      .take(3)
+                      .toList();
               newCuisineTabs.addAll(dynamicCuisines);
 
               if (!listEquals(_cuisineTabs, newCuisineTabs)) {
@@ -153,10 +152,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   _tabController!.addListener(() {
                     if (!_tabController!.indexIsChanging) {
                       final selectedTabCuisine =
-                      _cuisineTabs[_tabController!.index];
-                      context
-                          .read<FoodDeliveryBloc>()
-                          .add(SelectCuisine(selectedTabCuisine));
+                          _cuisineTabs[_tabController!.index];
+                      context.read<FoodDeliveryBloc>().add(
+                        SelectCuisine(selectedTabCuisine),
+                      );
                     }
                   });
 
@@ -212,9 +211,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SearchResultsScreen(
-                                initialQuery: _searchController.text, // Pass initial text if any
-                              ),
+                              builder:
+                                  (context) => SearchResultsScreen(
+                                    initialQuery:
+                                        _searchController
+                                            .text, // Pass initial text if any
+                                  ),
                             ),
                           );
                         },
@@ -246,62 +248,36 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: (_tabController != null &&
-                            _cuisineTabs.isNotEmpty &&
-                            _tabController!.length == _cuisineTabs.length)
-                            ? TabBar(
-                          controller: _tabController,
-                          isScrollable: true,
-                          labelColor: Colors.deepOrange,
-                          unselectedLabelColor: Colors.grey,
-                          indicatorColor: Colors.deepOrange,
-                          indicatorWeight: 3.0,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          labelStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          unselectedLabelStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          tabs: _cuisineTabs
-                              .map((cuisine) => Tab(text: cuisine))
-                              .toList(),
-                        )
-                            : _buildTabShimmerLoading(),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          if (state is FoodDeliveryProductLoaded) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    AllCuisinesScreen(allRecipes: _allRecipesFromBloc),
-                              ),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Recipes are still loading...'),
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text(
-                          'See More',
-                          style: TextStyle(color: Colors.deepOrange),
-                        ),
-                      ),
-                    ],
-                  ),
+                  padding: const EdgeInsets.only(left: 8.0, right: 20.0),
+                  child:
+                      (_tabController != null &&
+                              _cuisineTabs.isNotEmpty &&
+                              _tabController!.length == _cuisineTabs.length)
+                          ? TabBar(
+                            controller: _tabController,
+                            isScrollable: true,
+                            labelColor: Colors.deepOrange,
+                            unselectedLabelColor: Colors.grey,
+                            indicatorColor: Colors.deepOrange,
+                            indicatorWeight: 3.0,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            labelStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            unselectedLabelStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            tabs:
+                                _cuisineTabs
+                                    .map((cuisine) => Tab(text: cuisine))
+                                    .toList(),
+                          )
+                          : _buildTabShimmerLoading(),
                 ),
+
                 const SizedBox(height: 10),
                 const Align(
                   alignment: Alignment.centerRight,
@@ -324,10 +300,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
-                          height: 280,
-                          child: _buildRecipeList(state),
-                        ),
+                        SizedBox(height: 280, child: _buildRecipeList(state)),
                         const SizedBox(height: 20),
                       ],
                     ),
@@ -395,12 +368,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             recipe: recipe,
             isFavorite: isFavorite, // Pass favorite status
             onToggleFavorite: (recipeId) {
-              context.read<FoodDeliveryBloc>().add(ToggleFavoriteRecipe(recipeId));
+              context.read<FoodDeliveryBloc>().add(
+                ToggleFavoriteRecipe(recipeId),
+              );
             },
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => KhannaProductDetailScreen(recipe: recipe),
+                  builder:
+                      (context) => KhannaProductDetailScreen(recipe: recipe),
                 ),
               );
             },

@@ -119,7 +119,7 @@ class _CartScreenState extends State<CartScreen> {
               'swipe on an item to delete',
               style: TextStyle(
                 color: Colors.grey[600],
-                fontSize: cartItems.isEmpty?18:12,
+                fontSize: cartItems.isEmpty ? 18 : 12,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -172,22 +172,26 @@ class _CartScreenState extends State<CartScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    cartItems.isEmpty?Container():    const Text(
-                      'Total',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    cartItems.isEmpty?Container(): Text(
-                      totalAmount.toStringAsFixed(2),
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
+                    cartItems.isEmpty
+                        ? Container()
+                        : const Text(
+                          'Total',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                    cartItems.isEmpty
+                        ? Container()
+                        : Text(
+                          totalAmount.toStringAsFixed(2),
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -202,9 +206,10 @@ class _CartScreenState extends State<CartScreen> {
                           AppRoutes.homeRoute,
                         );
                       } else {
-                        Navigator.pushReplacementNamed(
+                        Navigator.pushNamed(
                           context,
                           AppRoutes.checkoutPage,
+                          arguments: totalAmount, // ✅ Passing total amount here
                         );
                       }
                     },
@@ -225,6 +230,8 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                 ),
+
+                const SizedBox(height: 30),
               ],
             ),
           ),

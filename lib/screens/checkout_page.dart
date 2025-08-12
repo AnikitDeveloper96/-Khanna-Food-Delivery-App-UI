@@ -1,5 +1,5 @@
-
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/appRoutes.dart';
 
 // Enum for delivery method selection
 enum DeliveryMethod { doorDelivery, pickUp }
@@ -14,7 +14,8 @@ class CheckoutDeliveryScreen extends StatefulWidget {
 }
 
 class _CheckoutDeliveryScreenState extends State<CheckoutDeliveryScreen> {
-  DeliveryMethod? _selectedDeliveryMethod = DeliveryMethod.doorDelivery; // Default selection
+  DeliveryMethod? _selectedDeliveryMethod =
+      DeliveryMethod.doorDelivery; // Default selection
 
   @override
   Widget build(BuildContext context) {
@@ -110,18 +111,12 @@ class _CheckoutDeliveryScreenState extends State<CheckoutDeliveryScreen> {
                   SizedBox(height: 8),
                   Text(
                     'Km 5 refinery road oppsite re\npublic road, effurun, delta state',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey,
-                    ),
+                    style: TextStyle(fontSize: 15, color: Colors.grey),
                   ),
                   SizedBox(height: 8),
                   Text(
                     '+234 9011039271',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey,
-                    ),
+                    style: TextStyle(fontSize: 15, color: Colors.grey),
                   ),
                 ],
               ),
@@ -172,7 +167,11 @@ class _CheckoutDeliveryScreenState extends State<CheckoutDeliveryScreen> {
                     },
                     activeColor: const Color(0xFFFF6B35), // Orange active color
                   ),
-                  const Divider(indent: 20, endIndent: 20, height: 1), // Divider between options
+                  const Divider(
+                    indent: 20,
+                    endIndent: 20,
+                    height: 1,
+                  ), // Divider between options
                   RadioListTile<DeliveryMethod>(
                     title: const Text(
                       'Pick up',
@@ -195,7 +194,6 @@ class _CheckoutDeliveryScreenState extends State<CheckoutDeliveryScreen> {
               ),
             ),
             const Spacer(), // Pushes total and button to the bottom
-
             // Total amount
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -211,7 +209,7 @@ class _CheckoutDeliveryScreenState extends State<CheckoutDeliveryScreen> {
                     ),
                   ),
                   Text(
-                    '₦${widget.totalAmount.toStringAsFixed(2)}',
+                    '${widget.totalAmount.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -228,8 +226,17 @@ class _CheckoutDeliveryScreenState extends State<CheckoutDeliveryScreen> {
               height: 60,
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to the payment screen
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutPaymentScreen(totalAmount: widget.totalAmount)));
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.paymentScreen,
+                    arguments: {
+                      'totalAmount': widget.totalAmount,
+                      'deliveryMethod':
+                          _selectedDeliveryMethod == DeliveryMethod.doorDelivery
+                              ? 'Door delivery'
+                              : 'Pick up',
+                    },
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFFF6B35), // Orange color
